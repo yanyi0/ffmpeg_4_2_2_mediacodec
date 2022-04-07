@@ -1,0 +1,14 @@
+prefix=/Users/zego/Documents/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv7-a
+exec_prefix=${prefix}
+libdir=/Users/zego/Documents/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv7-a/lib
+includedir=/Users/zego/Documents/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv7-a/include
+
+Name: libavresample
+Description: Libav audio resampling library
+Version: 4.0.0
+Requires: libavutil >= 56.31.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavresample -lm
+Libs.private: 
+Cflags: -I${includedir}

@@ -1,0 +1,14 @@
+prefix=/Users/zego/Documents/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv8-a
+exec_prefix=${prefix}
+libdir=/Users/zego/Documents/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv8-a/lib
+includedir=/Users/zego/Documents/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv8-a/include
+
+Name: libpostproc
+Description: FFmpeg postprocessing library
+Version: 55.5.100
+Requires: libavutil >= 56.31.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lpostproc -lm
+Libs.private: 
+Cflags: -I${includedir}

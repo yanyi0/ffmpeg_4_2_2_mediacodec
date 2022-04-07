@@ -1,0 +1,14 @@
+prefix=/Users/zego/Documents/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv8-a
+exec_prefix=${prefix}
+libdir=/Users/zego/Documents/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv8-a/lib
+includedir=/Users/zego/Documents/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv8-a/include
+
+Name: libavutil
+Description: FFmpeg utility library
+Version: 56.31.100
+Requires: 
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavutil -pthread -lm
+Libs.private: 
+Cflags: -I${includedir}
