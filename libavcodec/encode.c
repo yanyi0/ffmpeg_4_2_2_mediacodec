@@ -296,6 +296,7 @@ int attribute_align_arg avcodec_encode_video2(AVCodecContext *avctx,
                                               const AVFrame *frame,
                                               int *got_packet_ptr)
 {
+    av_log(avctx, AV_LOG_INFO, "encode.c avcodec_encode_video2 %s %d %d %d %d", __FUNCTION__, __LINE__, frame->pkt_size, frame->channels,*got_packet_ptr);
     int ret;
     AVPacket user_pkt = *avpkt;
     int needs_realloc = !user_pkt.data;
@@ -431,6 +432,7 @@ static int do_encode(AVCodecContext *avctx, const AVFrame *frame, int *got_packe
 
     if (avctx->codec_type == AVMEDIA_TYPE_VIDEO)
     {
+        av_log(avctx, AV_LOG_INFO, "do_encode %s %d %d %d %d", __FUNCTION__, __LINE__, frame->pkt_size, frame->channels,*got_packet);
         ret = avcodec_encode_video2(avctx, avctx->internal->buffer_pkt,
                                     frame, got_packet);
     }

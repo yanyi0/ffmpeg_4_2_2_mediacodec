@@ -186,11 +186,13 @@ static int hlmediacodec_enc_send(AVCodecContext *avctx)
     } while (false);
 
     av_frame_unref(ctx->frame);
+    hi_logi(avctx, "%s %d h264_hlmediacodec compiled (%d)", __FUNCTION__, __LINE__,ret);
     return ret;
 }
 
 static int hlmediacodec_enc_recv(AVCodecContext *avctx, AVPacket *pkt)
 {
+    hi_logi(avctx, "%s %d hlmediacodec_enc_recv compiled (%d)", __FUNCTION__, __LINE__,pkt->size);
     HLMediaCodecEncContext *ctx = avctx->priv_data;
 
     int ret = 0;
@@ -309,7 +311,7 @@ static int hlmediacodec_enc_recv(AVCodecContext *avctx, AVPacket *pkt)
             break;
         }
     }
-
+    hi_loge(avctx, "%s %d received packet (%d)", __FUNCTION__, __LINE__, ret);
     return ret;
 }
 // static av_cold int vtenc_frame(
@@ -325,7 +327,7 @@ static int hlmediacodec_encode_receive_packet(
     const AVFrame *frame,
     int *got_packet)
 {
-
+    av_log(NULL, AV_LOG_VERBOSE, "----ffmpeg----hlmediacodec_enc got_packet ----'%d'.\n", *got_packet);
     HLMediaCodecEncContext *ctx = avctx->priv_data;
     // copy frame
     // ctx->frame = frame;
