@@ -141,7 +141,6 @@ extern AVCodec ff_h264_crystalhd_decoder;
 extern AVCodec ff_h264_v4l2m2m_decoder;
 extern AVCodec ff_h264_mediacodec_decoder;
 extern AVCodec ff_h264_hlmediacodec_encoder;
-extern AVCodec ff_aac_hlmediacodec_decoder;
 extern AVCodec ff_mp3_hlmediacodec_decoder;
 extern AVCodec ff_h264_hlmediacodec_decoder;
 extern AVCodec ff_hevc_hlmediacodec_decoder;
@@ -810,7 +809,11 @@ const AVCodec *av_codec_iterate(void **opaque)
 {
     uintptr_t i = (uintptr_t)*opaque;
     const AVCodec *c = codec_list[i];
-
+    if (c)
+    {
+        av_log(NULL, AV_LOG_VERBOSE, "----ffmpeg----Matched for codec av_codec_iterate name long_name'%s'.'%s'\n", c->name,c->long_name);
+    }
+    
     ff_thread_once(&av_codec_static_init, av_codec_init_static);
 
     if (c)
@@ -907,10 +910,15 @@ static AVCodec *find_codec_by_name(const char *name, int (*x)(const AVCodec *))
         return NULL;
 
     while ((p = av_codec_iterate(&i))) {
-        if (!x(p))
+        if (!x(p)){
+            av_log(NULL, AV_LOG_VERBOSE, "----ffmpeg----Matched p==NULL '%s'.\n", p->name);
             continue;
-        if (strcmp(name, p->name) == 0)
+        }
+        av_log(NULL, AV_LOG_VERBOSE, "----ffmpeg----Matched p!=NULL '%s'.\n", p->name);
+        if (strcmp(name, p->name) == 0){
+            av_log(NULL, AV_LOG_VERBOSE, "----ffmpeg----Matched strcmp %s for codec '%s'.\n",name,p->name);
             return (AVCodec*)p;
+        }
     }
 
     return NULL;
@@ -918,6 +926,7 @@ static AVCodec *find_codec_by_name(const char *name, int (*x)(const AVCodec *))
 
 AVCodec *avcodec_find_encoder_by_name(const char *name)
 {
+     av_log(NULL, AV_LOG_VERBOSE, "----ffmpeg----Matched for codec avcodec_find_encoder_by_name'%s'.\n", name);
     return find_codec_by_name(name, av_codec_is_encoder);
 }
 

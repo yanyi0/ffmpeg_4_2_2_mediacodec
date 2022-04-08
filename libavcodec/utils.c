@@ -93,6 +93,7 @@ void av_fast_padded_mallocz(void *ptr, unsigned int *size, size_t min_size)
 
 int av_codec_is_encoder(const AVCodec *codec)
 {
+    //add android hardware encode
     return codec && (codec->encode_sub || codec->encode2 ||codec->send_frame);
 }
 

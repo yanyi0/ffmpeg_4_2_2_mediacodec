@@ -245,7 +245,6 @@ static const AVCodec * const codec_list[] = {
     &ff_h264_decoder,
     &ff_h264_v4l2m2m_decoder,
     &ff_h264_mediacodec_decoder,
-    &ff_aac_hlmediacodec_decoder,
     &ff_mp3_hlmediacodec_decoder,
     &ff_h264_hlmediacodec_decoder,
     &ff_hevc_hlmediacodec_decoder,

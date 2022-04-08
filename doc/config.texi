@@ -784,7 +784,6 @@
 @c @set config-h264-crystalhd-decoder no
 @set config-h264-v4l2m2m-decoder yes
 @set config-h264-mediacodec-decoder yes
-@set config-aac-hlmediacodec-decoder yes
 @set config-mp3-hlmediacodec-decoder yes
 @set config-h264-hlmediacodec-decoder yes
 @set config-hevc-hlmediacodec-decoder yes
