@@ -93,7 +93,7 @@ static int hlmediacodec_enc_send(AVCodecContext *avctx)
     do
     {
         int get_ret = ff_encode_get_frame(avctx, ctx->frame);
-        hi_logd(avctx, "ff_encode_get_frame readframe %s %d %d %d", __FUNCTION__, __LINE__, get_ret, ctx->frame->pkt_size);
+        hi_logd(avctx, "ffmpeg %s %d %d %d", __FUNCTION__, __LINE__, get_ret, ctx->frame->pkt_size);
         if (get_ret != 0)
         {
             ctx->stats.get_fail_cnt++;
@@ -101,12 +101,12 @@ static int hlmediacodec_enc_send(AVCodecContext *avctx)
             if (get_ret == AVERROR_EOF)
             {
                 ctx->in_eof = true; // flush
-                hi_logd(avctx, "%s %d ff_encode_get_frame eof", __FUNCTION__, __LINE__);
+                hi_logd(avctx, "ffmpeg %s %d ff_encode_get_frame eof", __FUNCTION__, __LINE__);
             }
             else
             {
                 ret = AVERROR(EAGAIN);
-                hi_logd(avctx, "%s %d ff_encode_get_frame fail (%d)", __FUNCTION__, __LINE__, get_ret);
+                hi_logd(avctx, "ffmpeg %s %d ff_encode_get_frame fail (%d)", __FUNCTION__, __LINE__, get_ret);
                 break;
             }
         }
@@ -186,17 +186,18 @@ static int hlmediacodec_enc_send(AVCodecContext *avctx)
     } while (false);
 
     av_frame_unref(ctx->frame);
-    hi_logi(avctx, "%s %d h264_hlmediacodec compiled (%d)", __FUNCTION__, __LINE__,ret);
+    hi_logi(avctx, "%s %d h264_hlmediacodec encoded (%d)", __FUNCTION__, __LINE__,ret);
     return ret;
 }
 
 static int hlmediacodec_enc_recv(AVCodecContext *avctx, AVPacket *pkt)
 {
-    hi_logi(avctx, "%s %d hlmediacodec_enc_recv compiled (%d)", __FUNCTION__, __LINE__,pkt->size);
+    hi_logi(avctx, "%s %d hlmediacodec_enc_recv encoded copy data (%d)", __FUNCTION__, __LINE__,pkt->size);
     HLMediaCodecEncContext *ctx = avctx->priv_data;
 
     int ret = 0;
     int ou_times = ctx->ou_timeout_times;
+    hi_logi(avctx, "%s %d hlmediacodec_enc_recv encoded copy data ou_times (%d) %d", __FUNCTION__, __LINE__,pkt->size,ou_times);
     int ou_timeout = ctx->in_eof ? ctx->eof_timeout : ctx->ou_timeout;
 
     while (true)
@@ -327,7 +328,7 @@ static int hlmediacodec_encode_receive_packet(
     const AVFrame *frame,
     int *got_packet)
 {
-    av_log(NULL, AV_LOG_VERBOSE, "----ffmpeg----hlmediacodec_enc got_packet ----'%d'.\n", *got_packet);
+    av_log(NULL, AV_LOG_VERBOSE, "ffmpeg %s %d hlmediacodec_enc per frame packet '%d' %d %d.\n",__FUNCTION__, __LINE__,frame->pkt_size,pkt->size,*got_packet);
     HLMediaCodecEncContext *ctx = avctx->priv_data;
     // copy frame
     // ctx->frame = frame;
@@ -335,13 +336,14 @@ static int hlmediacodec_encode_receive_packet(
     avci->buffer_frame = frame;
 
     avctx->internal = avci;
+    av_log(NULL, AV_LOG_VERBOSE, "ffmpeg %s %d hlmediacodec_enc per avci->buffer_frame packet '%d' %d %d.\n",__FUNCTION__, __LINE__,avctx->internal->buffer_frame->pkt_size,pkt->size,*got_packet);
     // avctx->priv_data = ctx;
 
     if (!ctx->inited)
     {
         return AVERROR_EXTERNAL;
     }
-    av_log(NULL, AV_LOG_VERBOSE, "----ffmpeg----hlmediacodec_enc hlmediacodec_encode_receive_packet'%d'.\n", pkt->size);
+    
     if (ctx->in_eof && ctx->ou_eof)
     {
         hi_logi(avctx, "%s %d ", __FUNCTION__, __LINE__);
@@ -357,7 +359,14 @@ static int hlmediacodec_encode_receive_packet(
         }
     }
 
-    return hlmediacodec_enc_recv(avctx, pkt);
+    int val = hlmediacodec_enc_recv(avctx, pkt);
+    if (val == 0)//pkt encoded ,signal got_packet
+    {
+        *got_packet = 1;
+        return val;
+    }
+    return val;
+    
 }
 
 static av_cold int hlmediacodec_encode_close(AVCodecContext *avctx)

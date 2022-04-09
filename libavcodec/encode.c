@@ -296,7 +296,7 @@ int attribute_align_arg avcodec_encode_video2(AVCodecContext *avctx,
                                               const AVFrame *frame,
                                               int *got_packet_ptr)
 {
-    av_log(avctx, AV_LOG_INFO, "encode.c avcodec_encode_video2 %s %d %d %d %d", __FUNCTION__, __LINE__, frame->pkt_size, frame->channels,*got_packet_ptr);
+    av_log(avctx, AV_LOG_INFO, "ffmpeg encode.c %s %d %d %d %d", __FUNCTION__, __LINE__, frame->pkt_size, frame->channels, *got_packet_ptr);
     int ret;
     AVPacket user_pkt = *avpkt;
     int needs_realloc = !user_pkt.data;
@@ -331,7 +331,7 @@ int attribute_align_arg avcodec_encode_video2(AVCodecContext *avctx,
         av_log(avctx, AV_LOG_WARNING, "AVFrame.width or height is not set\n");
 
     av_assert0(avctx->codec->encode2);
-    av_log(avctx, AV_LOG_INFO, "avcodec_encode_video2 avctx->codec->encode2\n");
+    av_log(NULL, AV_LOG_INFO, "ffmpeg %s %d hlmediacodec_enc per frame packet '%d' %d %d.\n", __FUNCTION__, __LINE__, frame->pkt_size, avpkt->size, *got_packet_ptr);
     ret = avctx->codec->encode2(avctx, avpkt, frame, got_packet_ptr);
     av_assert0(ret <= 0);
 
@@ -403,23 +403,23 @@ int avcodec_encode_subtitle(AVCodecContext *avctx, uint8_t *buf, int buf_size,
 }
 int ff_encode_get_frame(AVCodecContext *avctx, AVFrame *frame)
 {
-    av_log(avctx, AV_LOG_INFO, " ff_encode_get_frame readframe channels %s %d %d %d", __FUNCTION__, __LINE__, frame->pkt_size, frame->channels);
+    av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d readframe channels %d %d", __FUNCTION__, __LINE__, frame->pkt_size, frame->channels);
     AVCodecInternal *avci = avctx->internal;
 
     if (avci->draining)
     {
-        av_log(avctx, AV_LOG_INFO, "ff_encode_get_frame avci->draining %s %d %d %d", __FUNCTION__, __LINE__, frame->pkt_size, avci->draining);
+        av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d avci->draining %d %d", __FUNCTION__, __LINE__, frame->pkt_size, avci->draining);
         return AVERROR_EOF;
     }
 
     if (!avci->buffer_frame->buf[0])
     {
-        av_log(avctx, AV_LOG_INFO, "ff_encode_get_frame avci->buffer_frame->buf[0] %s %d %d %d", __FUNCTION__, __LINE__, frame->pkt_size, avci->buffer_frame->buf[0]);
+        av_log(avctx, AV_LOG_INFO, "ffmpeg  %s %d avci->buffer_frame->buf[0] %d %d", __FUNCTION__, __LINE__, frame->pkt_size, avci->buffer_frame->buf[0]);
         return AVERROR(EAGAIN);
     }
 
     av_frame_move_ref(frame, avci->buffer_frame);
-    av_log(avctx, AV_LOG_INFO, "av_frame_move_ref copy buffer_frame %s %d %d %d", __FUNCTION__, __LINE__, frame->pkt_size, frame->channels);
+    av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d av_frame_move_ref copy buffer_frame %d %d", __FUNCTION__, __LINE__, frame->pkt_size, frame->channels);
     return 0;
 }
 static int do_encode(AVCodecContext *avctx, const AVFrame *frame, int *got_packet)
@@ -432,7 +432,7 @@ static int do_encode(AVCodecContext *avctx, const AVFrame *frame, int *got_packe
 
     if (avctx->codec_type == AVMEDIA_TYPE_VIDEO)
     {
-        av_log(avctx, AV_LOG_INFO, "do_encode %s %d %d %d %d", __FUNCTION__, __LINE__, frame->pkt_size, frame->channels,*got_packet);
+        av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d %d %d %d", __FUNCTION__, __LINE__, frame->pkt_size, frame->channels, *got_packet);
         ret = avcodec_encode_video2(avctx, avctx->internal->buffer_pkt,
                                     frame, got_packet);
     }
@@ -489,7 +489,7 @@ int attribute_align_arg avcodec_send_frame(AVCodecContext *avctx, const AVFrame 
 
     if (avctx->internal->buffer_pkt_valid)
         return AVERROR(EAGAIN);
-
+    av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d %d %d", __FUNCTION__, __LINE__, frame->pkt_size, frame->channels);
     return do_encode(avctx, frame, &(int){0});
 }
 
@@ -515,6 +515,7 @@ int attribute_align_arg avcodec_receive_packet(AVCodecContext *avctx, AVPacket *
         int ret;
         if (!avctx->internal->draining)
             return AVERROR(EAGAIN);
+        av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d %d %d %d", __FUNCTION__, __LINE__,avpkt->size, avpkt->duration,avpkt->dts);
         ret = do_encode(avctx, NULL, &got_packet);
         if (ret < 0)
             return ret;
