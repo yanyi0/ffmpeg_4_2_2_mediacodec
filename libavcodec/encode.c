@@ -403,28 +403,28 @@ int avcodec_encode_subtitle(AVCodecContext *avctx, uint8_t *buf, int buf_size,
 }
 int ff_encode_get_frame(AVCodecContext *avctx, AVFrame *frame)
 {
-    av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d readframe channels %d %d", __FUNCTION__, __LINE__, frame->pkt_size, frame->channels);
+    // av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d readframe channels %d %d", __FUNCTION__, __LINE__, frame->pkt_size, frame->channels);
     AVCodecInternal *avci = avctx->internal;
 
     //TODO EOF
     // if (avci->draining || avci->buffer_frame->pkt_size == -1)
     if (avci->draining)
     {
-        av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d avci->draining %d %d", __FUNCTION__, __LINE__, frame->pkt_size, avci->draining);
+        // av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d avci->draining %d %d", __FUNCTION__, __LINE__, frame->pkt_size, avci->draining);
         return AVERROR_EOF;
     }
 
     if (!avci->buffer_frame->buf[0])
     {
-        av_log(avctx, AV_LOG_INFO, "ffmpeg  %s %d avci->buffer_frame->buf[0] %d %d", __FUNCTION__, __LINE__, frame->pkt_size, avci->buffer_frame->buf[0]);
+        // av_log(avctx, AV_LOG_INFO, "ffmpeg  %s %d avci->buffer_frame->buf[0] %d %d", __FUNCTION__, __LINE__, frame->pkt_size, avci->buffer_frame->buf[0]);
         return AVERROR(EAGAIN);
     }
-    av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d av_frame_move_ref before frame %d avci->buffer_frame %d", __FUNCTION__, __LINE__, frame->pkt_size, avci->buffer_frame->pkt_size);
+    // av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d av_frame_move_ref before frame %d avci->buffer_frame %d", __FUNCTION__, __LINE__, frame->pkt_size, avci->buffer_frame->pkt_size);
     av_frame_copy(frame,avctx->internal->buffer_frame);
     // av_frame_move_ref(frame, avci->buffer_frame);
     // frame = avci->buffer_frame;
     // av_frame_ref(frame,avci->buffer_frame);
-    av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d av_frame_move_ref after frame %d avci->buffer_frame %d", __FUNCTION__, __LINE__, frame->pkt_size, avci->buffer_frame->pkt_size);
+    // av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d av_frame_move_ref after frame %d avci->buffer_frame %d", __FUNCTION__, __LINE__, frame->pkt_size, avci->buffer_frame->pkt_size);
     return 0;
 }
 static int do_encode(AVCodecContext *avctx, const AVFrame *frame, int *got_packet)

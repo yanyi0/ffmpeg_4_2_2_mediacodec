@@ -169,8 +169,6 @@ static int hlmediacodec_enc_send(AVCodecContext *avctx)
                 in_bufidx = AMediaCodec_queueInputBuffer(ctx->mediacodec, in_bufidx, 0, 0, 0, HLMEDIACODEC_BUFFER_FLAG_END_OF_STREAM);
                 ctx->in_pts += ctx->in_duration;
                 hi_logi(avctx, "%s %d AMediaCodec_queueInputBuffer eof flush", __FUNCTION__, __LINE__);
-                //TODO flush finish
-                // ret = -1;
             }
 
             if (in_bufidx != 0)
@@ -189,18 +187,17 @@ static int hlmediacodec_enc_send(AVCodecContext *avctx)
     } while (false);
 
     av_frame_unref(ctx->frame);
-    hi_logi(avctx, "%s %d h264_hlmediacodec (%d) %d", __FUNCTION__, __LINE__,ret,ctx->frame->pkt_size);
+    hi_logi(avctx, "%s %d h264_hlmediacodec (%d) ctx->frame address %p", __FUNCTION__, __LINE__,ret,ctx->frame);
     return ret;
 }
 
 static int hlmediacodec_enc_recv(AVCodecContext *avctx, AVPacket *pkt)
 {
-    hi_logi(avctx, "%s %d hlmediacodec_enc_recv encoded copy data (%d)", __FUNCTION__, __LINE__,pkt->size);
     HLMediaCodecEncContext *ctx = avctx->priv_data;
 
     int ret = 0;
     int ou_times = ctx->ou_timeout_times;
-    hi_logi(avctx, "%s %d hlmediacodec_enc_recv encoded copy data ou_times (%d) %d %d", __FUNCTION__, __LINE__,pkt->size,ou_times,avctx->internal->buffer_frame->pkt_size);
+    hi_logi(avctx, "%s %d hlmediacodec_enc_recv encoded copy data ou_times (%d)", __FUNCTION__, __LINE__,ou_times);
     int ou_timeout = ctx->in_eof ? ctx->eof_timeout : ctx->ou_timeout;
 
     while (true)
@@ -211,14 +208,7 @@ static int hlmediacodec_enc_recv(AVCodecContext *avctx, AVPacket *pkt)
         
         ssize_t ou_bufidx = AMediaCodec_dequeueOutputBuffer(ctx->mediacodec, &bufferInfo, ctx->ou_timeout);
         hi_logt(avctx, "%s %d AMediaCodec_dequeueOutputBuffer ret (%d) times: %d offset: %d size: %d pts: %llu flags: %u", __FUNCTION__, __LINE__,
-                ou_bufidx, ctx->ou_timeout_times - ou_times, bufferInfo.offset, bufferInfo.size, bufferInfo.presentationTimeUs, bufferInfo.flags);
-        //TODO signal eof
-        // if (ctx->in_eof)
-        // {
-        //     bufferInfo.flags = 4;
-        // }
-        hi_logt(avctx, "%s %d AMediaCodec_dequeueOutputBuffer ret (%d) times: %d offset: %d size: %d pts: %llu flags: %u", __FUNCTION__, __LINE__,
-                ou_bufidx, ctx->ou_timeout_times - ou_times, bufferInfo.offset, bufferInfo.size, bufferInfo.presentationTimeUs, bufferInfo.flags);
+                 ou_bufidx, ctx->ou_timeout_times - ou_times, bufferInfo.offset, bufferInfo.size, bufferInfo.presentationTimeUs, bufferInfo.flags);
         if (ou_bufidx >= 0)
         {
             ctx->stats.ou_succ_cnt++;
@@ -236,7 +226,7 @@ static int hlmediacodec_enc_recv(AVCodecContext *avctx, AVPacket *pkt)
             int64_t pts = av_rescale_q(bufferInfo.presentationTimeUs, AV_TIME_BASE_Q, avctx->time_base);
 
             hi_logt(avctx, "%s %d AMediaCodec OutputBuffer status: %d outsize: %u flags: %d offset: %d size: %d pts: [%lld %lld] nalu: [%x %x %x %x %x %x]",
-                    __FUNCTION__, __LINE__, ou_bufidx, ou_bufsize, bufferInfo.flags, bufferInfo.offset, bufferInfo.size, bufferInfo.presentationTimeUs, pts, ou_buf[0], ou_buf[1], ou_buf[2], ou_buf[3], ou_buf[4], ou_buf[5]);
+                     __FUNCTION__, __LINE__, ou_bufidx, ou_bufsize, bufferInfo.flags, bufferInfo.offset, bufferInfo.size, bufferInfo.presentationTimeUs, pts, ou_buf[0], ou_buf[1], ou_buf[2], ou_buf[3], ou_buf[4], ou_buf[5]);
 
             if ((ret = ff_alloc_packet2(avctx, pkt, bufferInfo.size, bufferInfo.size) < 0))
             {
@@ -271,9 +261,9 @@ static int hlmediacodec_enc_recv(AVCodecContext *avctx, AVPacket *pkt)
                 ctx->stats.ou_succ_end_cnt++;
                 hi_logi(avctx, "%s %d AMediaCodec_dequeueOutputBuffer HLMEDIACODEC_BUFFER_FLAG_END_OF_STREAM", __FUNCTION__, __LINE__);
             }
-            hi_logi(avctx, "%s %d hlmediacodec_enc_recv avctx->internal->buffer_frame->pkt_size %d", __FUNCTION__, __LINE__,avctx->internal->buffer_frame->pkt_size);
+
             AMediaCodec_releaseOutputBuffer(ctx->mediacodec, ou_bufidx, false);
-            hi_logi(avctx, "%s %d hlmediacodec_enc_recv avctx->internal->buffer_frame->pkt_size %d", __FUNCTION__, __LINE__,avctx->internal->buffer_frame->pkt_size);
+            hi_logi(avctx, "%s %d", __FUNCTION__, __LINE__);
             break;
         }
 
@@ -323,23 +313,16 @@ static int hlmediacodec_enc_recv(AVCodecContext *avctx, AVPacket *pkt)
             break;
         }
     }
-    hi_loge(avctx, "%s %d received packet (%d) avctx->internal->buffer_frame->pkt_size %d", __FUNCTION__, __LINE__, ret,avctx->internal->buffer_frame->pkt_size);
+    hi_loge(avctx, "%s %d received packet (%d)", __FUNCTION__, __LINE__, ret);
     return ret;
 }
-// static av_cold int vtenc_frame(
-//     AVCodecContext *avctx,
-//     AVPacket       *pkt,
-//     const AVFrame  *frame,
-//     int            *got_packet){
-
-//     }
 static int hlmediacodec_encode_receive_packet(
     AVCodecContext *avctx,
     AVPacket *pkt,
     const AVFrame *frame,
     int *got_packet)
 {
-    av_log(NULL, AV_LOG_VERBOSE, "ffmpeg hlmediacodec_enc.c %s %d %p %d frame pkt_size '%d' %d %d avctx->internal->buffer_frame->pkt_size %d.\n",__FUNCTION__, __LINE__,frame,(frame==NULL),frame->pkt_size,pkt->size,*got_packet,avctx->internal->buffer_frame->pkt_size);
+    av_log(NULL, AV_LOG_VERBOSE, "ffmpeg hlmediacodec_enc.c %s %d frame address %p pkt address %p got_packet '%d'.\n",__FUNCTION__, __LINE__,frame,pkt,*got_packet);
     HLMediaCodecEncContext *ctx = avctx->priv_data;
     
     // copy frame
@@ -348,8 +331,8 @@ static int hlmediacodec_encode_receive_packet(
     // avctx->internal = avci;
     // av_frame_copy(avctx->internal->buffer_frame, frame);
 
-    av_log(NULL, AV_LOG_VERBOSE, "ffmpeg hlmediacodec_enc.c %s %d  per avci->buffer_frame packet '%d' %d %d frame pkt_size %d.\n",__FUNCTION__, __LINE__,avctx->internal->buffer_frame->pkt_size,pkt->size,*got_packet,frame->pkt_size);
-    av_log(NULL, AV_LOG_VERBOSE, "ffmpeg hlmediacodec_enc.c %s %d inited %d in_eof %d ou_eof %d avci->draining %d.\n",__FUNCTION__, __LINE__,ctx->inited,ctx->in_eof,ctx->ou_eof,avctx->internal->draining);
+    av_log(NULL, AV_LOG_VERBOSE, "ffmpeg hlmediacodec_enc.c %s %d avci->buffer_frame %p .\n",__FUNCTION__, __LINE__,avci->buffer_frame);
+
     if (!ctx->inited)
     {
         return AVERROR_EXTERNAL;
