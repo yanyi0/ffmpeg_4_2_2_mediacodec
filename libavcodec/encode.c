@@ -296,7 +296,7 @@ int attribute_align_arg avcodec_encode_video2(AVCodecContext *avctx,
                                               const AVFrame *frame,
                                               int *got_packet_ptr)
 {
-    av_log(avctx, AV_LOG_INFO, "ffmpeg encode.c %s %d %p %d %d %d %d", __FUNCTION__, __LINE__, frame,(frame==NULL),frame->pkt_size, frame->channels, *got_packet_ptr);
+    // av_log(avctx, AV_LOG_INFO, "ffmpeg encode.c %s %d %p %d %d %d %d", __FUNCTION__, __LINE__, frame,(frame==NULL),frame->pkt_size, frame->channels, *got_packet_ptr);
     int ret;
     AVPacket user_pkt = *avpkt;
     int needs_realloc = !user_pkt.data;
@@ -331,7 +331,7 @@ int attribute_align_arg avcodec_encode_video2(AVCodecContext *avctx,
         av_log(avctx, AV_LOG_WARNING, "AVFrame.width or height is not set\n");
 
     av_assert0(avctx->codec->encode2);
-    av_log(NULL, AV_LOG_INFO, "ffmpeg %s %d hlmediacodec_enc per frame packet %p %d '%d' %d %d.\n", __FUNCTION__, __LINE__,frame,(frame==NULL), frame->pkt_size, avpkt->size, *got_packet_ptr);
+    // av_log(NULL, AV_LOG_INFO, "ffmpeg %s %d hlmediacodec_enc per frame packet %p %d '%d' %d %d.\n", __FUNCTION__, __LINE__,frame,(frame==NULL), frame->pkt_size, avpkt->size, *got_packet_ptr);
     ret = avctx->codec->encode2(avctx, avpkt, frame, got_packet_ptr);
     av_assert0(ret <= 0);
 
@@ -437,7 +437,7 @@ static int do_encode(AVCodecContext *avctx, const AVFrame *frame, int *got_packe
 
     if (avctx->codec_type == AVMEDIA_TYPE_VIDEO)
     {
-        av_log(avctx, AV_LOG_INFO, "ffmpeg encode.c video %s %d frame %p frame is null %d frame.pkt_size %d %d %d", __FUNCTION__, __LINE__, frame,(frame==NULL),frame->pkt_size, frame->channels, *got_packet);
+        // av_log(avctx, AV_LOG_INFO, "ffmpeg encode.c video %s %d frame %p frame is null %d frame.pkt_size %d %d %d", __FUNCTION__, __LINE__, frame,(frame==NULL),frame->pkt_size, frame->channels, *got_packet);
         ret = avcodec_encode_video2(avctx, avctx->internal->buffer_pkt,
                                     frame, got_packet);
     }
@@ -494,7 +494,7 @@ int attribute_align_arg avcodec_send_frame(AVCodecContext *avctx, const AVFrame 
 
     if (avctx->internal->buffer_pkt_valid)
         return AVERROR(EAGAIN);
-    av_log(avctx, AV_LOG_INFO, "ffmpeg encode.c audio and video %s %d %p %d %d %d", __FUNCTION__, __LINE__,frame,(frame==NULL),frame->pkt_size, frame->channels);
+    // av_log(avctx, AV_LOG_INFO, "ffmpeg encode.c audio and video %s %d %p %d %d %d", __FUNCTION__, __LINE__,frame,(frame==NULL),frame->pkt_size, frame->channels);
     return do_encode(avctx, frame, &(int){0});
 }
 //TODO 
