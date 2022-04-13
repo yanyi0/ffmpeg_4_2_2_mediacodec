@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "typeinfo": "c",
-        "avcodec.h": "c"
+        "avcodec.h": "c",
+        "mediacodec_wrapper.h": "c"
     }
 }

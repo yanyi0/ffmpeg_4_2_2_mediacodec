@@ -11,4 +11,4 @@ libavcodec/hlmediacodec_enc.o: libavcodec/hlmediacodec_enc.c \
   libavutil/channel_layout.h libavcodec/avcodec.h libavutil/frame.h \
   libavutil/hwcontext.h libavcodec/version.h libavcodec/encode.h \
   libavcodec/hlmediacodec.h libavutil/time.h \
-  libavcodec/hlmediacodec_codec.h
+  libavcodec/hlmediacodec_codec.h libavcodec/mediacodec_wrapper.h

@@ -1055,6 +1055,7 @@ static void do_video_out(OutputFile *of,
                          AVFrame *next_picture,
                          double sync_ipts)
 {
+    av_log(NULL, AV_LOG_INFO, "ffmpeg ffmpeg.c %s %d next_picture pkt_size %d", __FUNCTION__, __LINE__,next_picture->pkt_size);
     int ret, format_video_sync;
     AVPacket pkt;
     AVCodecContext *enc = ost->enc_ctx;
@@ -1125,6 +1126,9 @@ static void do_video_out(OutputFile *of,
                 av_log(NULL, AV_LOG_VERBOSE, "Past duration %f too large\n", -delta0);
             } else
                 av_log(NULL, AV_LOG_DEBUG, "Clipping frame in rate conversion by %f\n", -delta0);
+                av_log(NULL, AV_LOG_INFO, "ffmpeg ffmpeg.c %s %d nb_frames %d", __FUNCTION__, __LINE__,nb_frames);
+                av_log(NULL, AV_LOG_VERBOSE, "ffmpeg ffmpeg.c %s %d nb_frames %d", __FUNCTION__, __LINE__,nb_frames);
+                av_log(NULL, AV_LOG_DEBUG, "ffmpeg ffmpeg.c %s %d nb_frames %d", __FUNCTION__, __LINE__,nb_frames);
             sync_ipts = ost->sync_opts;
             duration += delta0;
             delta0 = 0;
@@ -1196,6 +1200,7 @@ static void do_video_out(OutputFile *of,
 
     /* duplicates frame if needed */
     for (i = 0; i < nb_frames; i++) {
+        av_log(NULL, AV_LOG_INFO, "ffmpeg ffmpeg.c %s %d nb_frames %d", __FUNCTION__, __LINE__,nb_frames);
         AVFrame *in_picture;
         int forced_keyframe = 0;
         double pts_time;
@@ -1283,8 +1288,9 @@ static void do_video_out(OutputFile *of,
         }
 
         ost->frames_encoded++;
-
+        av_log(NULL, AV_LOG_INFO, "ffmpeg ffmpeg.c %s %d nb_frames %d", __FUNCTION__, __LINE__,nb_frames);
         ret = avcodec_send_frame(enc, in_picture);
+        av_log(NULL, AV_LOG_INFO, "ffmpeg ffmpeg.c %s %d ret %d", __FUNCTION__, __LINE__,ret);
         if (ret < 0)
             goto error;
         // Make sure Closed Captions will not be duplicated
@@ -1932,7 +1938,9 @@ static void flush_encoders(void)
             update_benchmark(NULL);
 
             while ((ret = avcodec_receive_packet(enc, &pkt)) == AVERROR(EAGAIN)) {
+                av_log(NULL, AV_LOG_INFO, "ffmpeg ffmpeg.c %s %d pkt.size %d", __FUNCTION__, __LINE__,pkt.size);
                 ret = avcodec_send_frame(enc, NULL);
+                av_log(NULL, AV_LOG_INFO, "ffmpeg ffmpeg.c %s %d ret %d", __FUNCTION__, __LINE__,pkt.size);
                 if (ret < 0) {
                     av_log(NULL, AV_LOG_FATAL, "%s encoding failed: %s\n",
                            desc,
