@@ -27,6 +27,7 @@ static const AVCodec * const codec_list[] = {
     &ff_h263_encoder,
     &ff_h263p_encoder,
     &ff_h264_hlmediacodec_encoder,
+    &ff_hevc_hlmediacodec_encoder,
     &ff_huffyuv_encoder,
     &ff_jpeg2000_encoder,
     &ff_jpegls_encoder,

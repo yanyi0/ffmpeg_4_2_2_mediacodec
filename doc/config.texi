@@ -1248,6 +1248,7 @@
 @set config-h263-encoder yes
 @set config-h263p-encoder yes
 @set config-h264-hlmediacodec-encoder yes
+@set config-hevc-hlmediacodec-encoder yes
 @c @set config-hap-encoder no
 @set config-huffyuv-encoder yes
 @set config-jpeg2000-encoder yes
