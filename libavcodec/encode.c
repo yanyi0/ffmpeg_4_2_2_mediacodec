@@ -418,7 +418,7 @@ int ff_encode_get_frame(AVCodecContext *avctx, AVFrame *frame)
         return AVERROR(EAGAIN);
     }
     av_log(avctx, AV_LOG_INFO, "ffmpeg %s %d frame address %p avci->buffer_frame address %p", __FUNCTION__, __LINE__, frame, avci->buffer_frame);
-    av_frame_copy(frame,avctx->internal->buffer_frame);
+    av_frame_ref(frame,avctx->internal->buffer_frame);
     // av_frame_move_ref(frame, avci->buffer_frame);
     // frame = avci->buffer_frame;
     // av_frame_ref(frame,avci->buffer_frame);

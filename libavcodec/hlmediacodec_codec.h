@@ -25,6 +25,10 @@
 #define HLMEDIACODEC_BUFFER_FLAG_END_OF_STREAM 4
 #define HLMEDIACODEC_BUFFER_FLAG_PARTIAL_FRAME 8
 
+#define AMEDIACODEC_INFO_TRY_AGAIN_LATER -1
+#define AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED -2
+#define AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED -3
+
 #define HLMINOK(v, l) ((v) >= (l) ? true : false)
 #define HLMAXOK(v, l) ((v) <= (l) ? true : false)
 #define HLOK(v, lv, rv) ((HLMAXOK(lv, rv) && HLMINOK(v, lv) && HLMAXOK(v, rv)) ? true : false)

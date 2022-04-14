@@ -270,15 +270,16 @@ static int hlmediacodec_enc_recv(AVCodecContext *avctx, AVPacket *pkt)
         ctx->stats.ou_fail_cnt++;
         if (ou_bufidx == AMEDIACODEC_INFO_TRY_AGAIN_LATER)
         {
-            hi_logd(avctx, "%s %d AMediaCodec_dequeueOutputBuffer AMEDIACODEC_INFO_TRY_AGAIN_LATER ", __FUNCTION__, __LINE__);
+            hi_logd(avctx, "%s %d ou_bufidx %d AMediaCodec_dequeueOutputBuffer AMEDIACODEC_INFO_TRY_AGAIN_LATER ", __FUNCTION__, __LINE__,ou_bufidx);
 
             ctx->stats.ou_fail_again_cnt++;
 
             if (ou_times <= 0)
             {
                 ret = AVERROR(EAGAIN);
-                hi_loge(avctx, "%s %d AMediaCodec_dequeueOutputBuffer timeout ", __FUNCTION__, __LINE__);
-                break;
+                hi_loge(avctx, "%s %d ou_times %d ret %d AMediaCodec_dequeueOutputBuffer timeout ", __FUNCTION__, __LINE__,ou_times,ret);
+                // can't break otherwise return -11 terminate encode
+                // break;
             }
 
             continue;
