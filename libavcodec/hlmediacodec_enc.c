@@ -190,7 +190,9 @@ static int hlmediacodec_enc_send(AVCodecContext *avctx)
     hi_logi(avctx, "%s %d h264_hlmediacodec (%d) ctx->frame address %p", __FUNCTION__, __LINE__,ret,ctx->frame);
     return ret;
 }
-
+//return frames
+static int receivePacket = 0;
+static int againLaterCount = 0;
 static int hlmediacodec_enc_recv(AVCodecContext *avctx, AVPacket *pkt)
 {
     HLMediaCodecEncContext *ctx = avctx->priv_data;
@@ -281,7 +283,7 @@ static int hlmediacodec_enc_recv(AVCodecContext *avctx, AVPacket *pkt)
                 // can't break otherwise return -11 terminate encode
                 // break;
             }
-
+            hi_loge(avctx, "%s %d ret %d againLaterCount %d ", __FUNCTION__, __LINE__,ret,againLaterCount++);
             continue;
         }
         else if (ou_bufidx == AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED)
@@ -314,7 +316,7 @@ static int hlmediacodec_enc_recv(AVCodecContext *avctx, AVPacket *pkt)
             break;
         }
     }
-    hi_loge(avctx, "%s %d received packet (%d)", __FUNCTION__, __LINE__, ret);
+    hi_loge(avctx, "%s %d received packet (%d) %d", __FUNCTION__, __LINE__, ret,receivePacket++);
     return ret;
 }
 static int hlmediacodec_encode_receive_packet(
