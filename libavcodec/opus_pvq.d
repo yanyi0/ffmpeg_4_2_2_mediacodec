@@ -2,8 +2,8 @@ libavcodec/opus_pvq.o: libavcodec/opus_pvq.c libavcodec/opustab.h \
   libavutil/mem.h libavutil/attributes.h libavutil/error.h \
   libavutil/avutil.h libavutil/common.h libavutil/macros.h \
   libavutil/version.h libavutil/avconfig.h config.h libavutil/intmath.h \
-  libavutil/internal.h libavutil/timer.h libavutil/log.h \
-  libavutil/aarch64/timer.h libavutil/cpu.h libavutil/dict.h \
+  libavutil/arm/intmath.h libavutil/internal.h libavutil/timer.h \
+  libavutil/log.h libavutil/arm/timer.h libavutil/cpu.h libavutil/dict.h \
   libavutil/pixfmt.h libavutil/libm.h libavutil/intfloat.h \
   libavutil/mathematics.h libavutil/rational.h libavcodec/opus_pvq.h \
   libavcodec/opus_celt.h libavcodec/opus.h libavutil/audio_fifo.h \
@@ -12,7 +12,7 @@ libavcodec/opus_pvq.o: libavcodec/opus_pvq.c libavcodec/opustab.h \
   libavutil/channel_layout.h libswresample/version.h \
   libavcodec/avcodec.h libavutil/hwcontext.h libavcodec/version.h \
   libavcodec/opus_rc.h libavcodec/get_bits.h libavutil/intreadwrite.h \
-  libavutil/bswap.h libavutil/aarch64/bswap.h libavutil/avassert.h \
-  libavcodec/mathops.h libavutil/reverse.h libavcodec/vlc.h \
-  libavcodec/opusdsp.h libavcodec/mdct15.h libavcodec/fft.h \
-  libavcodec/avfft.h
+  libavutil/bswap.h libavutil/arm/bswap.h libavutil/arm/intreadwrite.h \
+  libavutil/avassert.h libavcodec/mathops.h libavutil/reverse.h \
+  libavcodec/arm/mathops.h libavcodec/vlc.h libavcodec/opusdsp.h \
+  libavcodec/mdct15.h libavcodec/fft.h libavcodec/avfft.h

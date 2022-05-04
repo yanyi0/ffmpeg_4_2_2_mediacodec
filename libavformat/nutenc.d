@@ -1,11 +1,12 @@
 libavformat/nutenc.o: libavformat/nutenc.c libavutil/intreadwrite.h \
   libavutil/avconfig.h libavutil/attributes.h libavutil/bswap.h config.h \
-  libavutil/aarch64/bswap.h libavutil/mathematics.h libavutil/rational.h \
-  libavutil/intfloat.h libavutil/tree.h libavutil/version.h \
-  libavutil/macros.h libavutil/dict.h libavutil/avassert.h \
-  libavutil/avutil.h libavutil/common.h libavutil/intmath.h \
+  libavutil/arm/bswap.h libavutil/arm/intreadwrite.h \
+  libavutil/mathematics.h libavutil/rational.h libavutil/intfloat.h \
+  libavutil/tree.h libavutil/version.h libavutil/macros.h \
+  libavutil/dict.h libavutil/avassert.h libavutil/avutil.h \
+  libavutil/common.h libavutil/intmath.h libavutil/arm/intmath.h \
   libavutil/mem.h libavutil/error.h libavutil/internal.h \
-  libavutil/timer.h libavutil/log.h libavutil/aarch64/timer.h \
+  libavutil/timer.h libavutil/log.h libavutil/arm/timer.h \
   libavutil/cpu.h libavutil/pixfmt.h libavutil/libm.h libavutil/time.h \
   libavutil/opt.h libavutil/samplefmt.h libavcodec/bytestream.h \
   libavcodec/mpegaudiodata.h libavcodec/internal.h libavutil/buffer.h \

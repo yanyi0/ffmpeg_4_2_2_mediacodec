@@ -1,11 +1,12 @@
 libavformat/replaygain.o: libavformat/replaygain.c libavutil/avstring.h \
   libavutil/attributes.h libavutil/dict.h libavutil/version.h \
   libavutil/macros.h libavutil/intreadwrite.h libavutil/avconfig.h \
-  libavutil/bswap.h config.h libavutil/aarch64/bswap.h \
-  libavutil/mathematics.h libavutil/rational.h libavutil/intfloat.h \
-  libavutil/mem.h libavutil/error.h libavutil/avutil.h \
-  libavutil/common.h libavutil/intmath.h libavutil/internal.h \
-  libavutil/timer.h libavutil/log.h libavutil/aarch64/timer.h \
+  libavutil/bswap.h config.h libavutil/arm/bswap.h \
+  libavutil/arm/intreadwrite.h libavutil/mathematics.h \
+  libavutil/rational.h libavutil/intfloat.h libavutil/mem.h \
+  libavutil/error.h libavutil/avutil.h libavutil/common.h \
+  libavutil/intmath.h libavutil/arm/intmath.h libavutil/internal.h \
+  libavutil/timer.h libavutil/log.h libavutil/arm/timer.h \
   libavutil/cpu.h libavutil/pixfmt.h libavutil/libm.h \
   libavutil/replaygain.h libavformat/avformat.h libavcodec/avcodec.h \
   libavutil/samplefmt.h libavutil/buffer.h libavutil/channel_layout.h \

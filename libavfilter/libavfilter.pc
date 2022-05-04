@@ -1,7 +1,7 @@
-prefix=/Users/zego/Documents/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv8-a
+prefix=/Users/cloud/Documents/iOS/ego/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv7-a
 exec_prefix=${prefix}
-libdir=/Users/zego/Documents/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv8-a/lib
-includedir=/Users/zego/Documents/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv8-a/include
+libdir=/Users/cloud/Documents/iOS/ego/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv7-a/lib
+includedir=/Users/cloud/Documents/iOS/ego/FFmpeg/Android_sh/ffmpeg-4.2.2/android/armv7-a/include
 
 Name: libavfilter
 Description: FFmpeg audio/video filtering library

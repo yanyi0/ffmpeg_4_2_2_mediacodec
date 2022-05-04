@@ -2,9 +2,9 @@ libavfilter/vsrc_mptestsrc.o: libavfilter/vsrc_mptestsrc.c \
   libavutil/avstring.h libavutil/attributes.h libavutil/opt.h \
   libavutil/rational.h libavutil/avutil.h libavutil/common.h \
   libavutil/macros.h libavutil/version.h libavutil/avconfig.h config.h \
-  libavutil/intmath.h libavutil/mem.h libavutil/error.h \
-  libavutil/internal.h libavutil/timer.h libavutil/log.h \
-  libavutil/aarch64/timer.h libavutil/cpu.h libavutil/dict.h \
+  libavutil/intmath.h libavutil/arm/intmath.h libavutil/mem.h \
+  libavutil/error.h libavutil/internal.h libavutil/timer.h \
+  libavutil/log.h libavutil/arm/timer.h libavutil/cpu.h libavutil/dict.h \
   libavutil/pixfmt.h libavutil/libm.h libavutil/intfloat.h \
   libavutil/mathematics.h libavutil/samplefmt.h libavutil/parseutils.h \
   libavutil/pixdesc.h libavfilter/avfilter.h libavutil/buffer.h \

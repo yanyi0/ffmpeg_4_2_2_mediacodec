@@ -3,17 +3,18 @@ libavformat/sdp.o: libavformat/sdp.c libavutil/avstring.h \
   libavutil/version.h libavutil/macros.h libavutil/parseutils.h \
   libavutil/rational.h libavutil/opt.h libavutil/avutil.h \
   libavutil/common.h libavutil/avconfig.h config.h libavutil/intmath.h \
-  libavutil/mem.h libavutil/error.h libavutil/internal.h \
-  libavutil/timer.h libavutil/log.h libavutil/aarch64/timer.h \
-  libavutil/cpu.h libavutil/pixfmt.h libavutil/libm.h \
-  libavutil/intfloat.h libavutil/mathematics.h libavutil/samplefmt.h \
-  libavcodec/xiph.h libavcodec/mpeg4audio.h libavcodec/get_bits.h \
-  libavutil/intreadwrite.h libavutil/bswap.h libavutil/aarch64/bswap.h \
+  libavutil/arm/intmath.h libavutil/mem.h libavutil/error.h \
+  libavutil/internal.h libavutil/timer.h libavutil/log.h \
+  libavutil/arm/timer.h libavutil/cpu.h libavutil/pixfmt.h \
+  libavutil/libm.h libavutil/intfloat.h libavutil/mathematics.h \
+  libavutil/samplefmt.h libavcodec/xiph.h libavcodec/mpeg4audio.h \
+  libavcodec/get_bits.h libavutil/intreadwrite.h libavutil/bswap.h \
+  libavutil/arm/bswap.h libavutil/arm/intreadwrite.h \
   libavutil/avassert.h libavcodec/avcodec.h libavutil/buffer.h \
   libavutil/channel_layout.h libavutil/frame.h libavutil/hwcontext.h \
   libavcodec/version.h libavcodec/mathops.h libavutil/reverse.h \
-  libavcodec/vlc.h libavcodec/internal.h libavcodec/put_bits.h \
-  libavformat/avformat.h libavformat/avio.h libavformat/version.h \
-  libavformat/internal.h libavutil/bprint.h libavformat/os_support.h \
-  libavformat/avc.h libavformat/hevc.h libavformat/rtp.h \
-  libavformat/network.h libavformat/url.h
+  libavcodec/arm/mathops.h libavcodec/vlc.h libavcodec/internal.h \
+  libavcodec/put_bits.h libavformat/avformat.h libavformat/avio.h \
+  libavformat/version.h libavformat/internal.h libavutil/bprint.h \
+  libavformat/os_support.h libavformat/avc.h libavformat/hevc.h \
+  libavformat/rtp.h libavformat/network.h libavformat/url.h

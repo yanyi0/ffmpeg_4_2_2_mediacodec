@@ -4,12 +4,13 @@ libavcodec/on2avc.o: libavcodec/on2avc.c libavutil/channel_layout.h \
   libavutil/float_dsp.h libavcodec/avcodec.h libavutil/samplefmt.h \
   libavutil/avutil.h libavutil/common.h libavutil/macros.h \
   libavutil/version.h libavutil/avconfig.h libavutil/intmath.h \
-  libavutil/mem.h libavutil/error.h libavutil/internal.h \
-  libavutil/timer.h libavutil/log.h libavutil/aarch64/timer.h \
-  libavutil/cpu.h libavutil/dict.h libavutil/pixfmt.h libavutil/buffer.h \
-  libavutil/frame.h libavutil/hwcontext.h libavcodec/version.h \
-  libavcodec/bytestream.h libavutil/avassert.h libavutil/intreadwrite.h \
-  libavutil/bswap.h libavutil/aarch64/bswap.h libavcodec/fft.h \
+  libavutil/arm/intmath.h libavutil/mem.h libavutil/error.h \
+  libavutil/internal.h libavutil/timer.h libavutil/log.h \
+  libavutil/arm/timer.h libavutil/cpu.h libavutil/dict.h \
+  libavutil/pixfmt.h libavutil/buffer.h libavutil/frame.h \
+  libavutil/hwcontext.h libavcodec/version.h libavcodec/bytestream.h \
+  libavutil/avassert.h libavutil/intreadwrite.h libavutil/bswap.h \
+  libavutil/arm/bswap.h libavutil/arm/intreadwrite.h libavcodec/fft.h \
   libavcodec/avfft.h libavcodec/get_bits.h libavcodec/mathops.h \
-  libavutil/reverse.h libavcodec/vlc.h libavcodec/internal.h \
-  libavcodec/on2avcdata.h
+  libavutil/reverse.h libavcodec/arm/mathops.h libavcodec/vlc.h \
+  libavcodec/internal.h libavcodec/on2avcdata.h

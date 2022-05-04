@@ -1,7 +1,7 @@
 echo "开始编译ffmpeg so"
 
 #NDK路径.
-export NDK=/Users/zego/Library/android-ndk-r20b
+export NDK=/Users/cloud/Library/android-ndk-r20b
 
 PLATFORM=$NDK/platforms/android-21/arch-arm64
 TOOLCHAIN=$NDK/toolchains/aarch64-linux-android-4.9/prebuilt/darwin-x86_64
@@ -26,8 +26,8 @@ $PREFIX/libffmpeg.so \
     libswscale.a \
     libavresample.a \
     libavdevice.a \
-    /Users/zego/Documents/FFmpeg/Android_sh/x264-snapshot-20191217-2245-stable/android/arm64-v8a/lib/libx264.a \
-    /Users/zego/Documents/FFmpeg/Android_sh/fdk-aac-2.0.2/android/armv8-a/lib/libfdk-aac.a \
+    /Users/cloud/Documents/iOS/ego/FFmpeg/Android_sh/x264-snapshot-20191217-2245-stable/android/arm64-v8a/lib/libx264.a \
+    /Users/cloud/Documents/iOS/ego/FFmpeg/Android_sh/fdk-aac-2.0.2/android/armv8-a/lib/libfdk-aac.a \
     -lc -lm -lz -ldl -llog --dynamic-linker=/system/bin/linker \
     $TOOLCHAIN/lib/gcc/aarch64-linux-android/4.9.x/libgcc.a \
     $TOOL/sysroot/usr/lib/aarch64-linux-android/21/libmediandk.so \

@@ -1,12 +1,13 @@
 libavformat/rtpdec_svq3.o: libavformat/rtpdec_svq3.c \
   libavutil/intreadwrite.h libavutil/avconfig.h libavutil/attributes.h \
-  libavutil/bswap.h config.h libavutil/aarch64/bswap.h \
-  libavformat/avio_internal.h libavformat/avio.h libavutil/common.h \
-  libavutil/macros.h libavutil/version.h libavutil/intmath.h \
+  libavutil/bswap.h config.h libavutil/arm/bswap.h \
+  libavutil/arm/intreadwrite.h libavformat/avio_internal.h \
+  libavformat/avio.h libavutil/common.h libavutil/macros.h \
+  libavutil/version.h libavutil/intmath.h libavutil/arm/intmath.h \
   libavutil/mem.h libavutil/error.h libavutil/avutil.h \
   libavutil/rational.h libavutil/mathematics.h libavutil/intfloat.h \
   libavutil/log.h libavutil/pixfmt.h libavutil/internal.h \
-  libavutil/timer.h libavutil/aarch64/timer.h libavutil/cpu.h \
+  libavutil/timer.h libavutil/arm/timer.h libavutil/cpu.h \
   libavutil/dict.h libavutil/libm.h libavformat/version.h \
   libavformat/url.h libavformat/internal.h libavutil/bprint.h \
   libavutil/avstring.h libavformat/avformat.h libavcodec/avcodec.h \

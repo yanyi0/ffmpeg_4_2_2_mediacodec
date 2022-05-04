@@ -2,10 +2,11 @@ libavformat/aviobuf.o: libavformat/aviobuf.c libavutil/bprint.h \
   libavutil/attributes.h libavutil/avstring.h libavutil/crc.h \
   libavutil/version.h libavutil/macros.h libavutil/dict.h \
   libavutil/intreadwrite.h libavutil/avconfig.h libavutil/bswap.h \
-  config.h libavutil/aarch64/bswap.h libavutil/log.h libavutil/avutil.h \
-  libavutil/common.h libavutil/intmath.h libavutil/mem.h \
+  config.h libavutil/arm/bswap.h libavutil/arm/intreadwrite.h \
+  libavutil/log.h libavutil/avutil.h libavutil/common.h \
+  libavutil/intmath.h libavutil/arm/intmath.h libavutil/mem.h \
   libavutil/error.h libavutil/internal.h libavutil/timer.h \
-  libavutil/aarch64/timer.h libavutil/cpu.h libavutil/pixfmt.h \
+  libavutil/arm/timer.h libavutil/cpu.h libavutil/pixfmt.h \
   libavutil/libm.h libavutil/intfloat.h libavutil/mathematics.h \
   libavutil/rational.h libavutil/opt.h libavutil/samplefmt.h \
   libavutil/avassert.h libavformat/avformat.h libavcodec/avcodec.h \

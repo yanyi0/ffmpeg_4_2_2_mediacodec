@@ -4,14 +4,15 @@ libavcodec/ac3enc_fixed.o: libavcodec/ac3enc_fixed.c \
   libavutil/intfloat.h libavutil/pixfmt.h libavutil/avconfig.h \
   libavutil/version.h libavutil/macros.h libavcodec/avcodec.h \
   libavutil/samplefmt.h libavutil/avutil.h libavutil/common.h config.h \
-  libavutil/intmath.h libavutil/mem.h libavutil/error.h \
-  libavutil/internal.h libavutil/timer.h libavutil/log.h \
-  libavutil/aarch64/timer.h libavutil/cpu.h libavutil/dict.h \
+  libavutil/intmath.h libavutil/arm/intmath.h libavutil/mem.h \
+  libavutil/error.h libavutil/internal.h libavutil/timer.h \
+  libavutil/log.h libavutil/arm/timer.h libavutil/cpu.h libavutil/dict.h \
   libavutil/libm.h libavutil/frame.h libavutil/hwcontext.h \
   libavcodec/version.h libavcodec/audiodsp.h libavcodec/ac3enc.h \
   libavutil/float_dsp.h libavcodec/ac3.h libavutil/opt.h \
   libavcodec/ac3tab.h libavcodec/ac3dsp.h libavcodec/fft.h \
-  libavcodec/mathops.h libavutil/reverse.h libavcodec/me_cmp.h \
-  libavcodec/put_bits.h libavutil/intreadwrite.h libavutil/bswap.h \
-  libavutil/aarch64/bswap.h libavutil/avassert.h libavcodec/eac3enc.h \
+  libavcodec/mathops.h libavutil/reverse.h libavcodec/arm/mathops.h \
+  libavcodec/me_cmp.h libavcodec/put_bits.h libavutil/intreadwrite.h \
+  libavutil/bswap.h libavutil/arm/bswap.h libavutil/arm/intreadwrite.h \
+  libavutil/avassert.h libavcodec/eac3enc.h \
   libavcodec/ac3enc_opts_template.c libavcodec/ac3enc_template.c

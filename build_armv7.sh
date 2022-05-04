@@ -3,7 +3,7 @@
 echo ">>>>>>>>> 编译ffmpeg <<<<<<<<"
 
 #NDK路径.
-export NDK=/Users/zego/Library/android-ndk-r20b
+export NDK=/Users/cloud/Library/android-ndk-r20b
 TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/darwin-x86_64
 
 #如果只需要单独的ffmpeg，不需要依赖x264，去掉$ADD_H264_FEATURE这句就可以了；
@@ -73,8 +73,8 @@ echo "编译完成 $CPU"
 }
 
 #x264库所在的位置，ffmpeg 需要链接 x264
-X264_LIB_DIR=/Users/zego/Documents/FFmpeg/Android_sh/x264-snapshot-20191217-2245-stable/android/armeabi-v7a;
-FDK_AAC_LIB_DIR=/Users/zego/Documents/FFmpeg/Android_sh/fdk-aac-2.0.2/android/armv7-a;
+X264_LIB_DIR=/Users/cloud/Documents/iOS/ego/FFmpeg/Android_sh/x264-snapshot-20191217-2245-stable/android/armeabi-v7a;
+FDK_AAC_LIB_DIR=/Users/cloud/Documents/iOS/ego/FFmpeg/Android_sh/fdk-aac-2.0.2/android/armv7-a;
 
 #x264的头文件地址
 X264_INC="$X264_LIB_DIR/include"

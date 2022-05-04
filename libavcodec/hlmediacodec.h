@@ -7,8 +7,7 @@
 #include "libavutil/samplefmt.h"
 #include <media/NdkMediaCodec.h>
 #include <media/NdkMediaFormat.h>
-// #include "/Users/zego/Library/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/media/NdkMediaCodec.h"
-// #include "/Users/zego/Library/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/media/NdkMediaFormat.h"
+
 
 enum FFHlMediaCodecColorFormat {
     COLOR_FormatYUV420Planar                              = 0x13,
